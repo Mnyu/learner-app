@@ -19,6 +19,9 @@ const Navbar = () => {
             <li>
               <Link href='/login'>Login</Link>
             </li>
+            <li>
+              <Link href='/logout'>Logout</Link>
+            </li>
           </ul>
         </div>
       </div>

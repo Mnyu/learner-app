@@ -8,8 +8,9 @@ import { StatusCodes } from 'http-status-codes';
 
 const publicPaths = new Set([
   '/',
-  '/api/user/login',
   '/api/user/register',
+  '/api/user/login',
+  '/api/user/logout',
   '/api/courses/all',
 ]);
 
