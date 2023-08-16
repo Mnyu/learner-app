@@ -23,11 +23,9 @@ const login = () => {
     e.preventDefault();
     const loginPayload = { email, password };
     setIsLoading(true);
+    console.log('DOMAIN', DOMAIN);
     try {
-      const response = await axios.post(
-        `${DOMAIN}/api/user/login`,
-        loginPayload
-      );
+      const response = await axios.post(`/api/user/login`, loginPayload);
       const user: UserResponse = response.data;
       setUser(user);
       clearFormValues();
