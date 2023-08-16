@@ -27,10 +27,16 @@ const Navbar = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    router.push('/');
+  };
+
   return (
     <nav>
       <div className='nav-center'>
-        <div className='nav-header'>LEARNER</div>
+        <div className='nav-header' onClick={handleLogoClick}>
+          LEARNER
+        </div>
         {userRole && (
           <div className='user-name'>
             Welcome
