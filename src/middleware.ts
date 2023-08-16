@@ -6,13 +6,18 @@ import { StatusCodes } from 'http-status-codes';
 //   matcher: '/',
 // };
 
+const publicPaths = new Set([
+  '/',
+  '/api/user/login',
+  '/api/user/register',
+  '/api/courses/all',
+]);
+
 const middleware = async (req: NextRequest) => {
-  // console.log(req.nextUrl.pathname);
   const path = req.nextUrl.pathname;
-  const isPublicPath =
-    path === '/api/admin/login' || path === '/api/admin/signup';
+  const isPublicPath = publicPaths.has(path);
   const requestHeaders = new Headers(req.headers);
-  if (!isPublicPath) {
+  if (!isPublicPath && path.startsWith('/api')) {
     const payload = await verifyJWT(req).catch((err) => {
       console.error(err);
     });

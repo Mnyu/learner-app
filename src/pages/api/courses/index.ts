@@ -8,7 +8,7 @@ connectDB();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    return getCourses(req, res);
+    return getCreatedCourses(req, res);
   } else if (req.method === 'POST') {
     return createCourse(req, res);
   } else {
@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const getCourses = async (req: NextApiRequest, res: NextApiResponse) => {
+const getCreatedCourses = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = req.headers.user;
   const courses = await Course.find({ creator: userId });
   return res.status(StatusCodes.OK).json({ courses });
