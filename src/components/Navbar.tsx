@@ -8,9 +8,9 @@ import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/atoms/userAtom';
 import axios from 'axios';
+import { APP_URL } from '@/config';
 
 const Navbar = () => {
-  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const userRole = useRecoilValue(userRoleSelector);
   const userName = useRecoilValue(userNameSelector);
@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.get(`${DOMAIN}/api/user/logout`);
+      const response = await axios.get(`${APP_URL}/api/user/logout`);
       setUser({ name: '', email: '', role: '' });
       router.push('/');
     } catch (error) {

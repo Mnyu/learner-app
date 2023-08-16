@@ -5,9 +5,10 @@ import { userState } from '@/store/atoms/userAtom';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { APP_URL } from '@/config';
+import Loading from '@/components/Loading';
 
 const login = () => {
-  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const [email, setEmail] = useState('');
@@ -23,20 +24,26 @@ const login = () => {
     e.preventDefault();
     const loginPayload = { email, password };
     setIsLoading(true);
-    console.log('DOMAIN', DOMAIN);
     try {
-      const response = await axios.post(`/api/user/login`, loginPayload);
+      const response = await axios.post(
+        `${APP_URL}/api/user/login`,
+        loginPayload
+      );
       const user: UserResponse = response.data;
       setUser(user);
       clearFormValues();
-      setIsLoading(false);
       router.push('/');
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
       alert('Login unsuccessful.');
       setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className='section-center'>

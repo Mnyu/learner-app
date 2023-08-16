@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { CourseProps } from '@/types/course';
 import { useRouter } from 'next/router';
+import { APP_URL } from '@/config';
 
 const Course = (courseProps: CourseProps) => {
   return <CourseDetail {...courseProps} />;
@@ -10,7 +11,6 @@ const Course = (courseProps: CourseProps) => {
 export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const DOMAIN = process.env.DOMAIN;
   const courseProps = {
     props: {
       course: {},
@@ -19,7 +19,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const courseId = context.params?.id;
     const cookies = context.req.headers.cookie;
-    const response = await axios.get(`${DOMAIN}/api/courses/${courseId}`, {
+    const response = await axios.get(`${APP_URL}/api/courses/${courseId}`, {
       headers: {
         Cookie: cookies,
       },

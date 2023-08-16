@@ -2,9 +2,10 @@ import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { CourseProps } from '@/types/course';
+import { APP_URL } from '@/config';
+import Loading from './Loading';
 
 const CourseDetail = ({ course }: CourseProps) => {
-  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
 
   const [image, setImage] = useState(
@@ -36,7 +37,7 @@ const CourseDetail = ({ course }: CourseProps) => {
         const imageData = new FormData();
         imageData.append('image', file);
         const imageUploadResponse = await axios.post(
-          `${DOMAIN}/api/courses/upload`,
+          `${APP_URL}/api/courses/upload`,
           imageData,
           {
             headers: {
@@ -66,22 +67,26 @@ const CourseDetail = ({ course }: CourseProps) => {
         isPublished,
       };
       if (!course) {
-        const response = await axios.post(`${DOMAIN}/api/courses`, payload);
+        const response = await axios.post(`${APP_URL}/api/courses`, payload);
         clearFormValues();
       } else {
         const response = await axios.put(
-          `${DOMAIN}/api/courses/${course._id}`,
+          `${APP_URL}/api/courses/${course._id}`,
           payload
         );
       }
-      setIsLoading(false);
       router.push('/courses/created');
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
       alert('Error in adding course.');
       setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className=''>

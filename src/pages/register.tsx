@@ -5,9 +5,10 @@ import { useState } from 'react';
 import { userState } from '@/store/atoms/userAtom';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
+import { APP_URL } from '@/config';
+import Loading from '@/components/Loading';
 
 const register = () => {
-  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const [name, setName] = useState('');
@@ -27,20 +28,24 @@ const register = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${DOMAIN}/api/user/register`,
+        `${APP_URL}/api/user/register`,
         registerPayload
       );
       const user: UserResponse = response.data;
       setUser(user);
       clearFormValues();
-      setIsLoading(false);
       router.push('/courses');
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
       alert('Error in registration.');
       setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className='section-center'>
