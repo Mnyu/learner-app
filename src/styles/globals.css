@@ -475,11 +475,16 @@ nav {
 }
 .hero-center {
   width: 90vw;
-  max-width: var(--max-width);
+  max-width: 1200px;
 }
 .hero-title h1 {
   margin-bottom: 2rem;
   font-weight: 700;
+  color: var(--grey-800);
+}
+.hero-title h3 {
+  margin-bottom: 2rem;
+  font-weight: 500;
   color: var(--grey-800);
 }
 .hero-title p {
@@ -630,4 +635,29 @@ nav {
 
 .course-img-input {
   margin-top: 0;
+}
+
+.user-name {
+  color: var(--grey-700);
+  font-size: 1rem;
+  text-transform: capitalize;
+  letter-spacing: var(--letterSpacing);
+  display: block;
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+}
+
+.user-name span {
+  color: var(--primary-500);
+}
+
+.logout {
+  color: var(--grey-700);
+  font-size: 1rem;
+  text-transform: capitalize;
+  letter-spacing: var(--letterSpacing);
+  display: block;
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+  cursor: pointer;
 }

@@ -15,7 +15,6 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <InitUser />
       <main>
         <section className='hero'>
           <div className='hero-center'>
@@ -30,6 +29,12 @@ export default function Home() {
               </p>
               <Link href='/courses' className='btn hero-btn'>
                 Enroll Now
+              </Link>
+              <br />
+              <br />
+              <br />
+              <Link href='/teach' className='btn hero-btn'>
+                Teach On Learner
               </Link>
             </div>
             <div className='img-container'>

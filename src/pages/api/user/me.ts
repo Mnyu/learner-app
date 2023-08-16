@@ -9,6 +9,8 @@ connectDB();
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     return getUser(req, res);
+  } else if (req.method === 'PUT') {
+    return upgradeUserToAdmin(req, res);
   } else {
     res.status(StatusCodes.METHOD_NOT_ALLOWED).json({});
   }
@@ -17,6 +19,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = req.headers.user;
   const user = await User.findOne({ _id: userId });
+  const response: UserResponse = {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  };
+  res.status(StatusCodes.OK).json(response);
+};
+
+const upgradeUserToAdmin = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  const userId = req.headers.user;
+  const user = await User.findByIdAndUpdate(
+    { _id: userId },
+    { role: 'admin' },
+    { new: true, runValidators: true }
+  );
   const response: UserResponse = {
     name: user.name,
     email: user.email,

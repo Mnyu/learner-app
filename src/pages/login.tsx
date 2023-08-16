@@ -32,7 +32,7 @@ const login = () => {
       setUser(user);
       clearFormValues();
       setIsLoading(false);
-      router.push('/courses');
+      router.push('/');
     } catch (error) {
       console.error(error);
       alert('Login unsuccessful.');
