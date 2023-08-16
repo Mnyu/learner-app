@@ -5,9 +5,9 @@ import { userState } from '@/store/atoms/userAtom';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { NEXT_URL } from '@/config';
 
 const login = () => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const [email, setEmail] = useState('');
@@ -25,7 +25,7 @@ const login = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${NEXT_URL}/api/user/login`,
+        `${DOMAIN}/api/user/login`,
         loginPayload
       );
       const user: UserResponse = response.data;

@@ -1,18 +1,16 @@
-import { NEXT_URL } from '@/config';
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { CourseProps } from '@/types/course';
 import { useRouter } from 'next/router';
 
 const view = ({ course }: CourseProps) => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const image = course?.image || '/home.svg';
 
   const purchaseCourse = async () => {
     try {
-      const response = await axios.post(
-        `${NEXT_URL}/api/courses/${course?._id}`
-      );
+      const response = await axios.post(`${DOMAIN}/api/courses/${course?._id}`);
       alert('Course Purchased');
       router.push('/courses/purchased');
     } catch (error) {
@@ -44,6 +42,7 @@ const view = ({ course }: CourseProps) => {
 export default view;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const DOMAIN = process.env.DOMAIN;
   const courseProps = {
     props: {
       course: {},
@@ -52,7 +51,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const courseId = context.params?.id;
     const cookies = context.req.headers.cookie;
-    const response = await axios.get(`${NEXT_URL}/api/courses/${courseId}`, {
+    const response = await axios.get(`${DOMAIN}/api/courses/${courseId}`, {
       headers: {
         Cookie: cookies,
       },

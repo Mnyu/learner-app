@@ -1,4 +1,3 @@
-import { NEXT_URL } from '@/config';
 import { UserResponse } from '@/types/user';
 import axios from 'axios';
 import Link from 'next/link';
@@ -8,6 +7,7 @@ import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
 const register = () => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const [name, setName] = useState('');
@@ -27,7 +27,7 @@ const register = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${NEXT_URL}/api/user/register`,
+        `${DOMAIN}/api/user/register`,
         registerPayload
       );
       const user: UserResponse = response.data;

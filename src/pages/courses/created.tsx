@@ -1,4 +1,3 @@
-import { NEXT_URL } from '@/config';
 import axios from 'axios';
 import { CoursesProps } from '@/types/course';
 import CoursesList from '@/components/Courses';
@@ -12,6 +11,7 @@ const created = ({ courses }: CoursesProps) => {
 export default created;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const DOMAIN = process.env.DOMAIN;
   const coursesProps = {
     props: {
       courses: [],
@@ -19,7 +19,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
   try {
     const cookies = context.req.headers.cookie;
-    const response = await axios.get(`${NEXT_URL}/api/courses/`, {
+    const response = await axios.get(`${DOMAIN}/api/courses/`, {
       headers: {
         Cookie: cookies,
       },

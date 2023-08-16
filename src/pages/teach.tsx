@@ -1,4 +1,3 @@
-import { NEXT_URL } from '@/config';
 import { userState } from '@/store/atoms/userAtom';
 import { UserResponse } from '@/types/user';
 import axios from 'axios';
@@ -6,11 +5,12 @@ import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 
 const teach = () => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const handleGetStarted = async () => {
     try {
-      const response = await axios.put(`${NEXT_URL}/api/user/me`);
+      const response = await axios.put(`${DOMAIN}/api/user/me`);
       const user: UserResponse = response.data;
       setUser(user);
       router.push('/add-course');

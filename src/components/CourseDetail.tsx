@@ -1,10 +1,10 @@
-import { NEXT_URL } from '@/config';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { CourseProps } from '@/types/course';
 
 const CourseDetail = ({ course }: CourseProps) => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
 
   const [image, setImage] = useState(
@@ -36,7 +36,7 @@ const CourseDetail = ({ course }: CourseProps) => {
         const imageData = new FormData();
         imageData.append('image', file);
         const imageUploadResponse = await axios.post(
-          `${NEXT_URL}/api/courses/upload`,
+          `${DOMAIN}/api/courses/upload`,
           imageData,
           {
             headers: {
@@ -66,11 +66,11 @@ const CourseDetail = ({ course }: CourseProps) => {
         isPublished,
       };
       if (!course) {
-        const response = await axios.post(`${NEXT_URL}/api/courses`, payload);
+        const response = await axios.post(`${DOMAIN}/api/courses`, payload);
         clearFormValues();
       } else {
         const response = await axios.put(
-          `${NEXT_URL}/api/courses/${course._id}`,
+          `${DOMAIN}/api/courses/${course._id}`,
           payload
         );
       }

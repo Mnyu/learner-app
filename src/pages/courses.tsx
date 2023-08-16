@@ -1,5 +1,4 @@
 import CoursesList from '@/components/Courses';
-import { NEXT_URL } from '@/config';
 import { CoursesProps } from '@/types/course';
 import axios from 'axios';
 
@@ -10,13 +9,14 @@ const courses = ({ courses }: CoursesProps) => {
 export default courses;
 
 export async function getServerSideProps() {
+  const DOMAIN = process.env.DOMAIN;
   const coursesProps = {
     props: {
       courses: [],
     },
   };
   try {
-    const response = await axios.get(`${NEXT_URL}/api/courses/all`);
+    const response = await axios.get(`${DOMAIN}/api/courses/all`);
     coursesProps.props.courses = response.data.courses;
   } catch (error) {
     //console.error(error);

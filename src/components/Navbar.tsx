@@ -5,12 +5,12 @@ import {
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
-import { NEXT_URL } from '@/config';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/atoms/userAtom';
 import axios from 'axios';
 
 const Navbar = () => {
+  const DOMAIN = process.env.DOMAIN;
   const router = useRouter();
   const userRole = useRecoilValue(userRoleSelector);
   const userName = useRecoilValue(userNameSelector);
@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.get(`${NEXT_URL}/api/user/logout`);
+      const response = await axios.get(`${DOMAIN}/api/user/logout`);
       setUser({ name: '', email: '', role: '' });
       router.push('/');
     } catch (error) {
