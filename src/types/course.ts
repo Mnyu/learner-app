@@ -15,3 +15,12 @@ export const updateCoursePayload = z.object({
   price: z.number().positive().optional(),
   isPublished: z.boolean().default(true).optional(),
 });
+
+export type Course = {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  isPublished: boolean;
+  image: string;
+};

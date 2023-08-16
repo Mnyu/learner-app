@@ -1,9 +1,48 @@
+import { UserResponse } from '@/types/user';
 import Link from 'next/link';
+import { useState } from 'react';
+import { userState } from '@/store/atoms/userAtom';
+import { useSetRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { NEXT_URL } from '@/config';
 
 const login = () => {
+  const router = useRouter();
+  const setUser = useSetRecoilState(userState);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const clearFormValues = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const loginPayload = { email, password };
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        `${NEXT_URL}/api/user/login`,
+        loginPayload
+      );
+      const user: UserResponse = response.data;
+      setUser(user);
+      clearFormValues();
+      setIsLoading(false);
+      router.push('/courses');
+    } catch (error) {
+      console.error(error);
+      alert('Login unsuccessful.');
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className='section-center'>
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         <h4>Login</h4>
         <div className='form-row'>
           <input
@@ -13,6 +52,7 @@ const login = () => {
             id='email'
             required
             placeholder='Enter Email'
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className='form-row'>
@@ -23,6 +63,7 @@ const login = () => {
             id='password'
             required
             placeholder='Enter Password'
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button

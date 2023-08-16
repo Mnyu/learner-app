@@ -39,7 +39,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
     role: user.role,
   };
 
-  const cookie = serialize('token', token, { path: '/api', httpOnly: true });
+  const cookie = serialize('token', token, { path: '/', httpOnly: true });
 
   res.setHeader('Set-Cookie', cookie);
   res.status(StatusCodes.OK).json(response);

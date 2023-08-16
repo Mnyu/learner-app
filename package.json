@@ -12,19 +12,27 @@
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.5.0",
+    "formidable": "^3.5.0",
     "http-status-codes": "^2.2.0",
     "jose": "^4.14.4",
     "mongoose": "^7.4.3",
+    "mv": "^2.1.1",
     "next": "13.4.13",
+    "path": "^0.12.7",
     "react": "18.2.0",
+    "react-cookie": "^5.0.0",
     "react-dom": "18.2.0",
+    "recoil": "^0.7.7",
     "typescript": "5.1.6",
     "zod": "^3.22.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/cookie": "^0.5.1"
+    "@types/cookie": "^0.5.1",
+    "@types/formidable": "^3.4.1",
+    "@types/mv": "^2.1.2"
   }
 }
