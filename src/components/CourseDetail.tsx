@@ -7,9 +7,9 @@ import Loading from './Loading';
 
 const CourseDetail = ({ course }: CourseProps) => {
   const router = useRouter();
-
+  const randNum = Math.floor(Math.random() * (4 - 1)) + 1;
   const [image, setImage] = useState(
-    course?.image ? course?.image : '/image_upload.svg'
+    course?.image ? course?.image : `/${randNum}.jpg`
   );
   const [title, setTitle] = useState(course?.title ? course?.title : '');
   const [description, setDescription] = useState(
@@ -100,7 +100,7 @@ const CourseDetail = ({ course }: CourseProps) => {
               type='file'
               name='image'
               className='form-input course-img-input'
-              disabled={course !== null}
+              disabled={true}
               onChange={handleChangeImage}
             />
           </div>
