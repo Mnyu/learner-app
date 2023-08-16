@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CoursesProps } from '@/types/course';
 import CoursesList from '@/components/Courses';
 import { GetServerSidePropsContext } from 'next';
-import { APP_URL } from '@/config';
+import { APP_URL, APP_URL_SERVER_SIDE } from '@/config';
 
 const purchased = ({ courses }: CoursesProps) => {
   return (
@@ -23,11 +23,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
   try {
     const cookies = context.req.headers.cookie;
-    const response = await axios.get(`${APP_URL}/api/courses/purchased`, {
-      headers: {
-        Cookie: cookies,
-      },
-    });
+    const response = await axios.get(
+      `${APP_URL_SERVER_SIDE}/api/courses/purchased`,
+      {
+        headers: {
+          Cookie: cookies,
+        },
+      }
+    );
     coursesProps.props.courses = response.data.courses;
   } catch (error) {
     //console.error(error);
