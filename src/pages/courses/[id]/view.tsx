@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { CourseProps } from '@/types/course';
 import { useRouter } from 'next/router';
-import { APP_URL } from '@/config';
+import { APP_URL, APP_URL_SERVER_SIDE } from '@/config';
 import { useState } from 'react';
 import Loading from '@/components/Loading';
 
@@ -62,11 +62,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const courseId = context.params?.id;
     const cookies = context.req.headers.cookie;
-    const response = await axios.get(`${APP_URL}/api/courses/${courseId}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    });
+    const response = await axios.get(
+      `${APP_URL_SERVER_SIDE}/api/courses/${courseId}`,
+      {
+        headers: {
+          Cookie: cookies,
+        },
+      }
+    );
     courseProps.props.course = response.data.course;
   } catch (error) {
     //console.error(error);
