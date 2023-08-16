@@ -1,10 +1,10 @@
 import CoursesList from '@/components/Courses';
 import { NEXT_URL } from '@/config';
-import { CourseProps } from '@/types/course';
+import { CoursesProps } from '@/types/course';
 import axios from 'axios';
 
-const courses = ({ courses }: CourseProps) => {
-  return <CoursesList courses={courses} title='Courses' />;
+const courses = ({ courses }: CoursesProps) => {
+  return <CoursesList courses={courses} title='Courses' mode='view' />;
 };
 
 export default courses;

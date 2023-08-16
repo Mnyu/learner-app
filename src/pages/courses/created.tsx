@@ -1,11 +1,13 @@
 import { NEXT_URL } from '@/config';
 import axios from 'axios';
-import { CourseProps } from '@/types/course';
+import { CoursesProps } from '@/types/course';
 import CoursesList from '@/components/Courses';
 import { GetServerSidePropsContext } from 'next';
 
-const created = ({ courses }: CourseProps) => {
-  return <CoursesList courses={courses} title='My Created Courses' />;
+const created = ({ courses }: CoursesProps) => {
+  return (
+    <CoursesList courses={courses} title='My Created Courses' mode='edit' />
+  );
 };
 export default created;
 

@@ -25,7 +25,12 @@ export type Course = {
   image: string;
 };
 
-export type CourseProps = {
+export type CoursesProps = {
   courses: Course[];
   title: string;
+  mode: string;
+};
+
+export type CourseProps = {
+  course: null | Course;
 };

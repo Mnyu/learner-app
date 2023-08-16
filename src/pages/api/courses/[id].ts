@@ -24,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 const getCourse = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = req.headers.user;
   const { id: courseId } = req.query;
-  const course = await Course.findOne({ _id: courseId, creator: userId });
+  const course = await Course.findOne({ _id: courseId });
   if (!course) {
     throw new Error(`No course exists with id: ${courseId}`);
   }

@@ -5,6 +5,6 @@ import { courseState } from '@/store/atoms/courseAtom';
 const AddCourse = () => {
   const setCourseState = useSetRecoilState(courseState);
   setCourseState({ course: null });
-  return <CourseDetail />;
+  return <CourseDetail course={null} />;
 };
 export default AddCourse;

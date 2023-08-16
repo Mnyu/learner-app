@@ -2,29 +2,21 @@ import { NEXT_URL } from '@/config';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { courseState } from '@/store/atoms/courseAtom';
-import { courseSelector } from '@/store/selectors/courseSelector';
+import { CourseProps } from '@/types/course';
 
-const CourseDetail = () => {
+const CourseDetail = ({ course }: CourseProps) => {
   const router = useRouter();
-  const selectedCourse = useRecoilValue(courseSelector);
-  const setCourseState = useSetRecoilState(courseState);
 
   const [image, setImage] = useState(
-    selectedCourse?.image ? selectedCourse?.image : '/image_upload.svg'
+    course?.image ? course?.image : '/image_upload.svg'
   );
-  const [title, setTitle] = useState(
-    selectedCourse?.title ? selectedCourse?.title : ''
-  );
+  const [title, setTitle] = useState(course?.title ? course?.title : '');
   const [description, setDescription] = useState(
-    selectedCourse?.description ? selectedCourse?.description : ''
+    course?.description ? course?.description : ''
   );
-  const [price, setPrice] = useState(
-    selectedCourse?.price ? selectedCourse?.price : 0.0
-  );
+  const [price, setPrice] = useState(course?.price ? course?.price : 0.0);
   const [isPublished, setIsPublished] = useState(
-    selectedCourse?.isPublished ? selectedCourse?.isPublished : false
+    course?.isPublished ? course?.isPublished : false
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -73,12 +65,12 @@ const CourseDetail = () => {
         image,
         isPublished,
       };
-      if (!selectedCourse) {
+      if (!course) {
         const response = await axios.post(`${NEXT_URL}/api/courses`, payload);
         clearFormValues();
       } else {
         const response = await axios.put(
-          `${NEXT_URL}/api/courses/${selectedCourse._id}`,
+          `${NEXT_URL}/api/courses/${course._id}`,
           payload
         );
       }
@@ -103,13 +95,13 @@ const CourseDetail = () => {
               type='file'
               name='image'
               className='form-input course-img-input'
-              disabled={selectedCourse !== null}
+              disabled={course !== null}
               onChange={handleChangeImage}
             />
           </div>
         </div>
         <form className='form' onSubmit={handleSubmit}>
-          <h4>Add Course</h4>
+          <h4>{course ? 'Edit Course' : 'Add Course'}</h4>
           <div className='form-row'>
             <label htmlFor='title'>Title</label>
             <input
@@ -161,7 +153,7 @@ const CourseDetail = () => {
             className='btn btn-block'
             style={{ marginTop: '0.5rem' }}
           >
-            {selectedCourse ? 'Edit Course' : 'Add Course'}
+            {course ? 'Edit Course' : 'Add Course'}
           </button>
         </form>
       </div>

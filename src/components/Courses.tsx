@@ -1,15 +1,19 @@
 import { courseState } from '@/store/atoms/courseAtom';
-import { Course, CourseProps } from '@/types/course';
+import { Course, CoursesProps } from '@/types/course';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 
-const Courses = ({ courses, title }: CourseProps) => {
+const Courses = ({ courses, title, mode }: CoursesProps) => {
   const router = useRouter();
   const setCourse = useSetRecoilState(courseState);
 
   const openCourse = (course: Course) => {
     setCourse({ course });
-    router.push(`/courses/${course._id}`);
+    if (mode === 'edit') {
+      router.push(`/courses/${course._id}/edit`);
+    } else {
+      router.push(`/courses/${course._id}/view`);
+    }
   };
 
   if (courses.length === 0) {
@@ -36,7 +40,9 @@ const Courses = ({ courses, title }: CourseProps) => {
           return (
             <a
               key={id}
-              className='course'
+              className={
+                mode === 'purchased' ? 'course course-disabled' : 'course'
+              }
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 openCourse(course);
