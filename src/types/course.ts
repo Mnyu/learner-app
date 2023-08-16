@@ -24,3 +24,7 @@ export type Course = {
   isPublished: boolean;
   image: string;
 };
+
+export type Courses = {
+  courses: Course[];
+};

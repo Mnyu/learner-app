@@ -21,9 +21,11 @@ const getAllPurchasedCourses = async (
   const userCourses = await UserCourses.findOne({ user: userId }).populate(
     'purchasedCourses'
   );
-  return res
-    .status(StatusCodes.OK)
-    .json({ courses: userCourses.purchasedCourses });
+  const courses =
+    userCourses && userCourses.purchasedCourses
+      ? userCourses.purchasedCourses
+      : [];
+  return res.status(StatusCodes.OK).json({ courses });
 };
 
 export default handler;

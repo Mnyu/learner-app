@@ -14,7 +14,8 @@ export const createJWT = async (payload: UserJwtPayload) => {
 };
 
 export const verifyJWT = async (req: NextRequest) => {
-  //TODO : Error handling here
+  // console.log(req.nextUrl.pathname);
+  // console.log(req.cookies);
   const token = req.cookies.get('token')?.value;
   if (!token) {
     throw new Error('Missing user token');

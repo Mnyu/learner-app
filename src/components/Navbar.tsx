@@ -33,7 +33,9 @@ const Navbar = () => {
         <div className='nav-header'>LEARNER</div>
         {userRole && (
           <div className='user-name'>
-            Welcome <span>{userName}</span>
+            Welcome
+            {isAdmin ? ' Instructor - ' : ' '}
+            <span>{userName}</span>
           </div>
         )}
         <div className='links-container'>
@@ -51,6 +53,15 @@ const Navbar = () => {
             ) : (
               <li>
                 <Link href='/teach'>Teach on Learner</Link>
+              </li>
+            )}
+            {isAdmin ? (
+              <li>
+                <Link href='/courses/created'>My Courses</Link>
+              </li>
+            ) : (
+              <li>
+                <Link href='/courses/purchased'>My Courses</Link>
               </li>
             )}
             {userRole ? (
