@@ -1,4 +1,6 @@
+import CourseDetail from '@/components/CourseDetail';
+
 const EditCourse = () => {
-  return <div> EditCourse</div>;
+  return <CourseDetail />;
 };
 export default EditCourse;

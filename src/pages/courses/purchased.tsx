@@ -1,11 +1,11 @@
 import { NEXT_URL } from '@/config';
 import axios from 'axios';
-import { Courses } from '@/types/course';
+import { CourseProps } from '@/types/course';
 import CoursesList from '@/components/Courses';
 import { GetServerSidePropsContext } from 'next';
 
-const purchased = ({ courses }: Courses) => {
-  return <CoursesList courses={courses} />;
+const purchased = ({ courses }: CourseProps) => {
+  return <CoursesList courses={courses} title='My Purchased Courses' />;
 };
 export default purchased;
 

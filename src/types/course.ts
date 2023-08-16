@@ -25,6 +25,7 @@ export type Course = {
   image: string;
 };
 
-export type Courses = {
+export type CourseProps = {
   courses: Course[];
+  title: string;
 };
