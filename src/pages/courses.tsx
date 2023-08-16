@@ -16,7 +16,9 @@ export async function getServerSideProps() {
     },
   };
   try {
-    const response = await axios.get(`${APP_URL}/api/courses/all`);
+    const response = await axios.get(
+      `https://learner-app-one.vercel.app/api/courses/all`
+    );
     coursesProps.props.courses = response.data.courses;
   } catch (error) {
     //console.error(error);
